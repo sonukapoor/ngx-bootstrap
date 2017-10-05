@@ -46,12 +46,15 @@ fi
 
 echo "Starting Sauce Connect in the background, logging into:"
 echo "  $CONNECT_LOG"
-tail -f -n 20 $CONNECT_LOG &
 echo "  $CONNECT_STDOUT"
-tail -f -n 20 $CONNECT_STDOUT &
 echo "  $CONNECT_STDERR"
-tail -f -n 20 $CONNECT_STDERR &
 echo $ARGS
 #sauce-connect/bin/sc -u "$SAUCE_USERNAME" -k "$SAUCE_ACCESS_KEY" $ARGS \
 sc -u "$SAUCE_USERNAME" -k "$SAUCE_ACCESS_KEY" $ARGS \
-  --logfile $CONNECT_LOG 2> $CONNECT_STDERR 1> $CONNECT_STDOUT &
+  --logfile $CONNECT_LOG 2> $CONNECT_STDERR 1> $CONNECT_STDOUT
+
+sleep 5
+
+tail -f -n 20 $CONNECT_STDERR &
+tail -f -n 20 $CONNECT_STDOUT &
+tail -f -n 20 $CONNECT_LOG &
