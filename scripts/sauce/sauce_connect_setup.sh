@@ -25,11 +25,11 @@ CONNECT_STDERR="$LOGS_DIR/sauce-connect.stderr"
 
 # Get Connect and start it
 mkdir -p $CONNECT_DIR
-#cd $CONNECT_DIR
-#curl $CONNECT_URL -o $CONNECT_DOWNLOAD 2> /dev/null 1> /dev/null
+cd $CONNECT_DIR
+curl $CONNECT_URL -o $CONNECT_DOWNLOAD 2> /dev/null 1> /dev/null
 mkdir sauce-connect
-#tar --extract --file=$CONNECT_DOWNLOAD --strip-components=1 --directory=sauce-connect > /dev/null
-#rm $CONNECT_DOWNLOAD
+tar --extract --file=$CONNECT_DOWNLOAD --strip-components=1 --directory=sauce-connect > /dev/null
+rm $CONNECT_DOWNLOAD
 
 #SAUCE_ACCESS_KEY=`echo $SAUCE_ACCESS_KEY | rev`
 
@@ -49,8 +49,7 @@ echo "  $CONNECT_LOG"
 echo "  $CONNECT_STDOUT"
 echo "  $CONNECT_STDERR"
 echo $ARGS
-#sauce-connect/bin/sc -u "$SAUCE_USERNAME" -k "$SAUCE_ACCESS_KEY" $ARGS \
-sc -u "$SAUCE_USERNAME" -k "$SAUCE_ACCESS_KEY" $ARGS \
+sauce-connect/bin/sc -u "$SAUCE_USERNAME" -k "$SAUCE_ACCESS_KEY" $ARGS \
   --logfile $CONNECT_LOG 2> $CONNECT_STDERR 1> $CONNECT_STDOUT
 
 sleep 5
